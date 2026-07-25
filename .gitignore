@@ -1,0 +1,9 @@
+dist/
+
+# Local credential — never commit (contains a GitHub PAT)
+.github-token
+
+# Local agent registrations and runtime state
+.agent-shell/
+.claude/
+.codex/
