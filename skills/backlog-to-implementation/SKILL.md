@@ -1,6 +1,7 @@
 ---
 name: backlog-to-implementation
-description: Use when the user wants to push a backlog entry toward actual implementation — phrases like "这条可以开始做了"、"把这条交棒去实现"、"开始实现这条backlog"、"这条动手吧"、"implement this backlog item"、"hand this off for implementation". Seedbed's 🧺 harvest step (route B) — first checks whether the entry already has a spec (via its 产物链接 field): has one → route to an installed executor (Spec-Kit /speckit.implement, OpenSpec /opsx:apply, Task Master, Matt Pocock /implement, Superpowers executing-plans, or the current agent as fallback); none → asks the user to either run backlog-to-spec first or, for small changes, skip spec and hand the entry itself over. Routing only — it NEVER implements or dispatches agents itself. Do NOT use to produce a spec (backlog-to-spec) or to tidy the pool (groom-backlog).
+version: 1.0.0
+description: v1.0.0｜Use when the user wants to push a backlog entry toward actual implementation — phrases like "这条可以开始做了"、"把这条交棒去实现"、"开始实现这条backlog"、"这条动手吧"、"implement this backlog item"、"hand this off for implementation". Seedbed's 🧺 harvest step (route B) — first checks whether the entry already has a spec (via its 产物链接 field): has one → route to an installed executor (Spec-Kit /speckit.implement, OpenSpec /opsx:apply, Task Master, Matt Pocock /implement, Superpowers executing-plans, or the current agent as fallback); none → asks the user to either run backlog-to-spec first or, for small changes, skip spec and hand the entry itself over. Routing only — it NEVER implements or dispatches agents itself. Do NOT use to produce a spec (backlog-to-spec) or to tidy the pool (groom-backlog).
 ---
 
 # backlog-to-implementation 🧺 (harvest → 代码)

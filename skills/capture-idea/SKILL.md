@@ -1,6 +1,7 @@
 ---
 name: capture-idea
-description: Use when the user wants to jot down a raw idea, spark, or something worth remembering later WITHOUT acting on it now — phrases like "记个想法"、"记一下这个idea"、"看到篇文章想存个点子"、"这个视频给我个灵感"、"先记下来别丢了"、"capture this idea"、"note this down for later". Seedbed's 🌱 sow step — drops the idea into the ideas pool (.seedbed/ideas/) with near-zero friction, then stops. Do NOT use to start building, to write a spec, to turn an idea into a backlog item (that's idea-to-backlog), or to look up existing notes — capture only writes a new idea, it never acts on it.
+version: 1.0.0
+description: v1.0.0｜Use when the user wants to jot down a raw idea, spark, or something worth remembering later WITHOUT acting on it now — phrases like "记个想法"、"记一下这个idea"、"看到篇文章想存个点子"、"这个视频给我个灵感"、"先记下来别丢了"、"capture this idea"、"note this down for later". Seedbed's 🌱 sow step — drops the idea into the ideas pool (.seedbed/ideas/) with near-zero friction, then stops. Do NOT use to start building, to write a spec, to turn an idea into a backlog item (that's idea-to-backlog), or to look up existing notes — capture only writes a new idea, it never acts on it.
 ---
 
 # capture-idea 🌱 (sow)

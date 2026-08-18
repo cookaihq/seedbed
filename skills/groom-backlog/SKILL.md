@@ -1,6 +1,7 @@
 ---
 name: groom-backlog
-description: Use when the user wants to tidy up their backlog pool in a batch — phrases like "整理下backlog"、"backlog grooming"、"过一遍backlog"、"合并重复的条目"、"重新排下优先级"、"版本规划前收拾一下待办池"、"groom the backlog". Seedbed's ✂️ prune step — walks the backlog pool (.seedbed/backlog/), merging duplicates, splitting oversized entries, updating statuses, filling in Impact/Confidence/Effort/Priority, marking Dropped with reasons. Do NOT use to review raw ideas (that's review-ideas), to add a new entry (capture-idea / idea-to-backlog), or to hand an entry off to spec/implementation tools (backlog-to-spec / backlog-to-implementation).
+version: 1.0.0
+description: v1.0.0｜Use when the user wants to tidy up their backlog pool in a batch — phrases like "整理下backlog"、"backlog grooming"、"过一遍backlog"、"合并重复的条目"、"重新排下优先级"、"版本规划前收拾一下待办池"、"groom the backlog". Seedbed's ✂️ prune step — walks the backlog pool (.seedbed/backlog/), merging duplicates, splitting oversized entries, updating statuses, filling in Impact/Confidence/Effort/Priority, marking Dropped with reasons. Do NOT use to review raw ideas (that's review-ideas), to add a new entry (capture-idea / idea-to-backlog), or to hand an entry off to spec/implementation tools (backlog-to-spec / backlog-to-implementation).
 ---
 
 # groom-backlog ✂️ (prune)

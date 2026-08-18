@@ -1,6 +1,7 @@
 ---
 name: idea-to-backlog
-description: Use when a captured idea has matured and the user wants to turn it into a proper backlog item — phrases like "把这个想法转成backlog"、"这个idea可以做了"、"给这个点子立项"、"这个想法成熟了，正式记一条"、"promote this idea"、"move this to backlog". Seedbed's 🪴 transplant step — the exit of the ideas pool and the entrance of the backlog pool. Runs the real gate: dedup search + root-cause + acceptance criteria, writes a full backlog entry, marks the source idea Promoted (kept, cross-linked). Do NOT use to capture a fresh idea (capture-idea), to batch-review ideas (review-ideas), or to hand a backlog item to a spec/impl tool (backlog-to-spec / backlog-to-implementation).
+version: 1.0.0
+description: v1.0.0｜Use when a captured idea has matured and the user wants to turn it into a proper backlog item — phrases like "把这个想法转成backlog"、"这个idea可以做了"、"给这个点子立项"、"这个想法成熟了，正式记一条"、"promote this idea"、"move this to backlog". Seedbed's 🪴 transplant step — the exit of the ideas pool and the entrance of the backlog pool. Runs the real gate: dedup search + root-cause + acceptance criteria, writes a full backlog entry, marks the source idea Promoted (kept, cross-linked). Do NOT use to capture a fresh idea (capture-idea), to batch-review ideas (review-ideas), or to hand a backlog item to a spec/impl tool (backlog-to-spec / backlog-to-implementation).
 ---
 
 # idea-to-backlog 🪴 (transplant)

@@ -1,6 +1,7 @@
 ---
 name: backlog-to-spec
-description: Use when the user wants to push a backlog entry toward a formal spec — phrases like "这条backlog可以做spec了"、"把这条交棒出去写规格"、"给这条立spec"、"这条该进设计了"、"hand this off to spec"、"turn this backlog item into a spec". Seedbed's 🧺 harvest step (route A) — detects which spec-driven tool the user has installed (Matt Pocock skills / Superpowers / Spec-Kit / OpenSpec / Task Master), lets them choose (or recommends installing Matt Pocock skills if none), packs the entry's context into that tool's expected input, and gives exact startup commands. Routing only — it NEVER writes the spec itself or takes over execution. Do NOT use to hand off to implementation (backlog-to-implementation), to tidy the pool (groom-backlog), or to promote an idea (idea-to-backlog).
+version: 1.0.0
+description: v1.0.0｜Use when the user wants to push a backlog entry toward a formal spec — phrases like "这条backlog可以做spec了"、"把这条交棒出去写规格"、"给这条立spec"、"这条该进设计了"、"hand this off to spec"、"turn this backlog item into a spec". Seedbed's 🧺 harvest step (route A) — detects which spec-driven tool the user has installed (Matt Pocock skills / Superpowers / Spec-Kit / OpenSpec / Task Master), lets them choose (or recommends installing Matt Pocock skills if none), packs the entry's context into that tool's expected input, and gives exact startup commands. Routing only — it NEVER writes the spec itself or takes over execution. Do NOT use to hand off to implementation (backlog-to-implementation), to tidy the pool (groom-backlog), or to promote an idea (idea-to-backlog).
 ---
 
 # backlog-to-spec 🧺 (harvest → 规格)
