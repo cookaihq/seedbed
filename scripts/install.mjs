@@ -15,6 +15,15 @@
 // - 软链模式：目标是指向本仓 dist 的软链 → 重指（幂等）；指向别处的软链 → 跳过；
 //   真实目录 → 视为本安装器先前复制模式的产物，替换为软链（会打印提示）。
 
+// ── Node 运行时版本下限实检（ADR 0007 规则 2.2）─────────────────────────────
+// engines 只在安装期被包管理器检查、运行期 node 不看，所以声明不能替代实检。
+const MIN_NODE_MAJOR = 18 // 与仓根 package.json engines.node 同源
+const nodeMajor = parseInt(process.version.slice(1).split('.')[0], 10)
+if (!(nodeMajor >= MIN_NODE_MAJOR)) {
+  console.error(`Node 版本过低（需 >= ${MIN_NODE_MAJOR}，当前 ${process.version}）。请执行：brew install node`)
+  process.exit(1)
+}
+
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'

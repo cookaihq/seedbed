@@ -1,7 +1,7 @@
 ---
 name: review-ideas
-version: 1.0.0
-description: v1.0.0｜Use when the user wants to sit down and go through their captured ideas in a batch and sort them — phrases like "回顾一下我记的想法"、"整理下idea"、"看看之前存的点子"、"过一遍ideas池"、"idea grooming"、"review my ideas"、"triage my notes". Seedbed's 🌿 tend step — walks the ideas pool (.seedbed/ideas/), and for each open idea decides one of three: mature → hand to idea-to-backlog, not-ready → keep Brewing, abandon → Dropped (with reason, never deleted). Do NOT use to capture a single new idea (that's capture-idea) or to groom the backlog pool (that's groom-backlog).
+version: 1.0.1
+description: v1.0.1｜Use when the user wants to sit down and go through their captured ideas in a batch and sort them — phrases like "回顾一下我记的想法"、"整理下idea"、"看看之前存的点子"、"过一遍ideas池"、"idea grooming"、"review my ideas"、"triage my notes". Seedbed's 🌿 tend step — walks the ideas pool (.seedbed/ideas/), and for each open idea decides one of three: mature → hand to idea-to-backlog, not-ready → keep Brewing, abandon → Dropped (with reason, never deleted). Do NOT use to capture a single new idea (that's capture-idea) or to groom the backlog pool (that's groom-backlog).
 ---
 
 # review-ideas 🌿 (tend)

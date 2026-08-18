@@ -12,6 +12,15 @@
 // 行首 emoji：ideas=类型(⚡🎯🔖🔍)；backlog=优先级(🔴🟡🟢⚪)。
 // 幂等：从当前目录整体重算；只产出导航链接，不嵌图不拼全文。
 
+// ── Node 运行时版本下限实检（ADR 0007 规则 2.2）─────────────────────────────
+// engines 只在安装期被包管理器检查、运行期 node 不看，所以声明不能替代实检。
+const MIN_NODE_MAJOR = 18 // 与仓根 package.json engines.node 同源
+const nodeMajor = parseInt(process.version.slice(1).split('.')[0], 10)
+if (!(nodeMajor >= MIN_NODE_MAJOR)) {
+  console.error(`Node 版本过低（需 >= ${MIN_NODE_MAJOR}，当前 ${process.version}）。请执行：brew install node`)
+  process.exit(1)
+}
+
 import { readFileSync, writeFileSync, readdirSync, statSync, existsSync, unlinkSync } from 'node:fs'
 import { join, resolve, basename, dirname } from 'node:path'
 
