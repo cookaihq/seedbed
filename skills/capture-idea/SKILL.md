@@ -1,7 +1,7 @@
 ---
 name: capture-idea
-version: 1.0.1
-description: v1.0.1｜Use when the user wants to jot down a raw idea, spark, or something worth remembering later WITHOUT acting on it now — phrases like "记个想法"、"记一下这个idea"、"看到篇文章想存个点子"、"这个视频给我个灵感"、"先记下来别丢了"、"capture this idea"、"note this down for later". Seedbed's 🌱 sow step — drops the idea into the ideas pool (.seedbed/ideas/) with near-zero friction, then stops. Do NOT use to start building, to write a spec, to turn an idea into a backlog item (that's idea-to-backlog), or to look up existing notes — capture only writes a new idea, it never acts on it.
+version: 1.1.0
+description: v1.1.0｜Use when the user wants to jot down a raw idea, spark, or something worth remembering later WITHOUT acting on it now — phrases like "记个想法"、"记一下这个idea"、"看到篇文章想存个点子"、"这个视频给我个灵感"、"先记下来别丢了"、"capture this idea"、"note this down for later". Seedbed's 🌱 sow step — drops the idea into the ideas pool (.seedbed/ideas/) with near-zero friction, then stops. Do NOT use to start building, to write a spec, to turn an idea into a backlog item (that's idea-to-backlog), or to look up existing notes — capture only writes a new idea, it never acts on it.
 ---
 
 # capture-idea 🌱 (sow)
@@ -26,6 +26,22 @@ description: v1.0.1｜Use when the user wants to jot down a raw idea, spark, or 
 - 用户想把某个想法**转成正式 backlog**（追根因、补验收）→ 用 `idea-to-backlog`。
 - 用户想**回顾 / 整理**已记的想法 → 用 `review-ideas`。
 - 用户在**查询**已有笔记 → 直接读 `.seedbed/ideas/IDEAS.md`，不是本 skill。
+
+## 第 0 步：检查更新（每次运行都做）
+
+进入下面的正式流程之前，先运行 skill 目录下的：
+
+```bash
+scripts/check_update.sh
+```
+
+- 退出码 `0`：直接进入下一步，**不要**向用户复述脚本输出。
+- 退出码 `10`：把脚本打印的报告**原样转述给用户**，并询问是否现在拉取。
+  - 用户同意 → 运行 `scripts/check_update.sh --pull`，成功后按新版本继续；失败时把脚本给出的拒绝原因转述给用户，然后**按当前版本继续本次任务**，不要卡在更新上。
+  - 用户拒绝或不理会 → 按当前版本继续，本次任务内不再提更新。
+- 用户说「关掉自动检查更新」→ 往 `~/.config/capture-idea/.env` 写 `AUTO_UPDATE_CHECK=0`（该文件已存在则只改 / 追加这一行，不动其他行）。
+
+**更新检查永远不是任务的阻塞项**：检查失败、拉取失败、用户不理会，一律落到「按当前版本继续干活」。
 
 ## Flow
 

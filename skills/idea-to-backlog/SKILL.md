@@ -1,7 +1,7 @@
 ---
 name: idea-to-backlog
-version: 1.0.1
-description: v1.0.1｜Use when a captured idea has matured and the user wants to turn it into a proper backlog item — phrases like "把这个想法转成backlog"、"这个idea可以做了"、"给这个点子立项"、"这个想法成熟了，正式记一条"、"promote this idea"、"move this to backlog". Seedbed's 🪴 transplant step — the exit of the ideas pool and the entrance of the backlog pool. Runs the real gate: dedup search + root-cause + acceptance criteria, writes a full backlog entry, marks the source idea Promoted (kept, cross-linked). Do NOT use to capture a fresh idea (capture-idea), to batch-review ideas (review-ideas), or to hand a backlog item to a spec/impl tool (backlog-to-spec / backlog-to-implementation).
+version: 1.1.0
+description: v1.1.0｜Use when a captured idea has matured and the user wants to turn it into a proper backlog item — phrases like "把这个想法转成backlog"、"这个idea可以做了"、"给这个点子立项"、"这个想法成熟了，正式记一条"、"promote this idea"、"move this to backlog". Seedbed's 🪴 transplant step — the exit of the ideas pool and the entrance of the backlog pool. Runs the real gate: dedup search + root-cause + acceptance criteria, writes a full backlog entry, marks the source idea Promoted (kept, cross-linked). Do NOT use to capture a fresh idea (capture-idea), to batch-review ideas (review-ideas), or to hand a backlog item to a spec/impl tool (backlog-to-spec / backlog-to-implementation).
 ---
 
 # idea-to-backlog 🪴 (transplant)
@@ -22,6 +22,22 @@ description: v1.0.1｜Use when a captured idea has matured and the user wants to
 - 想法还不成熟 → 留 `Brewing`（`review-ideas` 处理），别硬移栽。
 - 只是记一条新想法 → `capture-idea`。
 - backlog 条目要交棒给 spec / 实现工具 → `backlog-to-spec` / `backlog-to-implementation`（v1.1）。
+
+## 第 0 步：检查更新（每次运行都做）
+
+进入下面的正式流程之前，先运行 skill 目录下的：
+
+```bash
+scripts/check_update.sh
+```
+
+- 退出码 `0`：直接进入下一步，**不要**向用户复述脚本输出。
+- 退出码 `10`：把脚本打印的报告**原样转述给用户**，并询问是否现在拉取。
+  - 用户同意 → 运行 `scripts/check_update.sh --pull`，成功后按新版本继续；失败时把脚本给出的拒绝原因转述给用户，然后**按当前版本继续本次任务**，不要卡在更新上。
+  - 用户拒绝或不理会 → 按当前版本继续，本次任务内不再提更新。
+- 用户说「关掉自动检查更新」→ 往 `~/.config/idea-to-backlog/.env` 写 `AUTO_UPDATE_CHECK=0`（该文件已存在则只改 / 追加这一行，不动其他行）。
+
+**更新检查永远不是任务的阻塞项**：检查失败、拉取失败、用户不理会，一律落到「按当前版本继续干活」。
 
 ## Flow
 

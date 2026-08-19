@@ -59,6 +59,18 @@ for (const name of SKILLS) {
     fs.copyFileSync(path.join(SRC, 'HANDOFF.md'), path.join(dest, 'references', 'HANDOFF.md'))
   }
   fs.copyFileSync(path.join(SRC, 'scripts', 'reindex.mjs'), path.join(dest, 'scripts', 'reindex.mjs'))
+  // skill 自带的脚本（如 ADR 0010 的 check_update.sh）原样带进产物，保留可执行位——
+  // SKILL.md 里以 `scripts/<name>` 相对路径调用它们，漏拷就是产物里的死链接。
+  const ownScripts = path.join(SRC, 'skills', name, 'scripts')
+  if (fs.existsSync(ownScripts)) {
+    for (const e of fs.readdirSync(ownScripts, { withFileTypes: true })) {
+      if (!e.isFile()) continue
+      const from = path.join(ownScripts, e.name)
+      const to = path.join(dest, 'scripts', e.name)
+      fs.copyFileSync(from, to)
+      fs.chmodSync(to, fs.statSync(from).mode & 0o777)
+    }
+  }
 }
 console.log(`✓ dist 构建完成（${SKILLS.length} 个 skill）`)
 

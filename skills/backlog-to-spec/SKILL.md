@@ -1,7 +1,7 @@
 ---
 name: backlog-to-spec
-version: 1.0.1
-description: v1.0.1｜Use when the user wants to push a backlog entry toward a formal spec — phrases like "这条backlog可以做spec了"、"把这条交棒出去写规格"、"给这条立spec"、"这条该进设计了"、"hand this off to spec"、"turn this backlog item into a spec". Seedbed's 🧺 harvest step (route A) — detects which spec-driven tool the user has installed (Matt Pocock skills / Superpowers / Spec-Kit / OpenSpec / Task Master), lets them choose (or recommends installing Matt Pocock skills if none), packs the entry's context into that tool's expected input, and gives exact startup commands. Routing only — it NEVER writes the spec itself or takes over execution. Do NOT use to hand off to implementation (backlog-to-implementation), to tidy the pool (groom-backlog), or to promote an idea (idea-to-backlog).
+version: 1.1.0
+description: v1.1.0｜Use when the user wants to push a backlog entry toward a formal spec — phrases like "这条backlog可以做spec了"、"把这条交棒出去写规格"、"给这条立spec"、"这条该进设计了"、"hand this off to spec"、"turn this backlog item into a spec". Seedbed's 🧺 harvest step (route A) — detects which spec-driven tool the user has installed (Matt Pocock skills / Superpowers / Spec-Kit / OpenSpec / Task Master), lets them choose (or recommends installing Matt Pocock skills if none), packs the entry's context into that tool's expected input, and gives exact startup commands. Routing only — it NEVER writes the spec itself or takes over execution. Do NOT use to hand off to implementation (backlog-to-implementation), to tidy the pool (groom-backlog), or to promote an idea (idea-to-backlog).
 ---
 
 # backlog-to-spec 🧺 (harvest → 规格)
@@ -22,6 +22,22 @@ description: v1.0.1｜Use when the user wants to push a backlog entry toward a f
 - 要直接推向**实现**（已有 spec 或小改动）→ `backlog-to-implementation`。
 - 条目还没进 backlog 池 → 先 `idea-to-backlog`。
 - 条目问题/边界还不清楚 → 先补事实（`Needs research`），别硬交棒。
+
+## 第 0 步：检查更新（每次运行都做）
+
+进入下面的正式流程之前，先运行 skill 目录下的：
+
+```bash
+scripts/check_update.sh
+```
+
+- 退出码 `0`：直接进入下一步，**不要**向用户复述脚本输出。
+- 退出码 `10`：把脚本打印的报告**原样转述给用户**，并询问是否现在拉取。
+  - 用户同意 → 运行 `scripts/check_update.sh --pull`，成功后按新版本继续；失败时把脚本给出的拒绝原因转述给用户，然后**按当前版本继续本次任务**，不要卡在更新上。
+  - 用户拒绝或不理会 → 按当前版本继续，本次任务内不再提更新。
+- 用户说「关掉自动检查更新」→ 往 `~/.config/backlog-to-spec/.env` 写 `AUTO_UPDATE_CHECK=0`（该文件已存在则只改 / 追加这一行，不动其他行）。
+
+**更新检查永远不是任务的阻塞项**：检查失败、拉取失败、用户不理会，一律落到「按当前版本继续干活」。
 
 ## Flow
 

@@ -1,7 +1,7 @@
 ---
 name: backlog-to-implementation
-version: 1.0.1
-description: v1.0.1｜Use when the user wants to push a backlog entry toward actual implementation — phrases like "这条可以开始做了"、"把这条交棒去实现"、"开始实现这条backlog"、"这条动手吧"、"implement this backlog item"、"hand this off for implementation". Seedbed's 🧺 harvest step (route B) — first checks whether the entry already has a spec (via its 产物链接 field): has one → route to an installed executor (Spec-Kit /speckit.implement, OpenSpec /opsx:apply, Task Master, Matt Pocock /implement, Superpowers executing-plans, or the current agent as fallback); none → asks the user to either run backlog-to-spec first or, for small changes, skip spec and hand the entry itself over. Routing only — it NEVER implements or dispatches agents itself. Do NOT use to produce a spec (backlog-to-spec) or to tidy the pool (groom-backlog).
+version: 1.1.0
+description: v1.1.0｜Use when the user wants to push a backlog entry toward actual implementation — phrases like "这条可以开始做了"、"把这条交棒去实现"、"开始实现这条backlog"、"这条动手吧"、"implement this backlog item"、"hand this off for implementation". Seedbed's 🧺 harvest step (route B) — first checks whether the entry already has a spec (via its 产物链接 field): has one → route to an installed executor (Spec-Kit /speckit.implement, OpenSpec /opsx:apply, Task Master, Matt Pocock /implement, Superpowers executing-plans, or the current agent as fallback); none → asks the user to either run backlog-to-spec first or, for small changes, skip spec and hand the entry itself over. Routing only — it NEVER implements or dispatches agents itself. Do NOT use to produce a spec (backlog-to-spec) or to tidy the pool (groom-backlog).
 ---
 
 # backlog-to-implementation 🧺 (harvest → 代码)
@@ -20,6 +20,22 @@ description: v1.0.1｜Use when the user wants to push a backlog entry toward act
 - 要出**规格**而非代码 → `backlog-to-spec`。
 - 条目还不在 backlog 池 → 先 `idea-to-backlog`。
 - 用户只是问"这条做到哪了"→ 读条目 `产物链接` 回答即可，进度归下游工具管，不归 Seedbed。
+
+## 第 0 步：检查更新（每次运行都做）
+
+进入下面的正式流程之前，先运行 skill 目录下的：
+
+```bash
+scripts/check_update.sh
+```
+
+- 退出码 `0`：直接进入下一步，**不要**向用户复述脚本输出。
+- 退出码 `10`：把脚本打印的报告**原样转述给用户**，并询问是否现在拉取。
+  - 用户同意 → 运行 `scripts/check_update.sh --pull`，成功后按新版本继续；失败时把脚本给出的拒绝原因转述给用户，然后**按当前版本继续本次任务**，不要卡在更新上。
+  - 用户拒绝或不理会 → 按当前版本继续，本次任务内不再提更新。
+- 用户说「关掉自动检查更新」→ 往 `~/.config/backlog-to-implementation/.env` 写 `AUTO_UPDATE_CHECK=0`（该文件已存在则只改 / 追加这一行，不动其他行）。
+
+**更新检查永远不是任务的阻塞项**：检查失败、拉取失败、用户不理会，一律落到「按当前版本继续干活」。
 
 ## Flow
 
