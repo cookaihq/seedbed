@@ -32,6 +32,21 @@ Seedbed 把你的想法当**种子**，不当待办。看到一个点子、一�
 
 > 命令名是功能直白名，花名只用于叙事——好用 + 好记两不耽误。
 
+## 版本与 Release
+
+各目标的当前版本与对应 Release（本节由 `harness/repo-harness/release-on-push.sh --table` 生成，升版本的提交须同步更新，约定见外层仓 `docs/adr/0009`）：
+
+<!-- release-table:begin -->
+| 目标 | 版本 | Release |
+|---|---|---|
+| backlog-to-implementation | 1.0.1 | [backlog-to-implementation/v1.0.1](https://github.com/cookaihq/seedbed/releases/tag/backlog-to-implementation%2Fv1.0.1) |
+| backlog-to-spec | 1.0.1 | [backlog-to-spec/v1.0.1](https://github.com/cookaihq/seedbed/releases/tag/backlog-to-spec%2Fv1.0.1) |
+| capture-idea | 1.0.1 | [capture-idea/v1.0.1](https://github.com/cookaihq/seedbed/releases/tag/capture-idea%2Fv1.0.1) |
+| groom-backlog | 1.0.1 | [groom-backlog/v1.0.1](https://github.com/cookaihq/seedbed/releases/tag/groom-backlog%2Fv1.0.1) |
+| idea-to-backlog | 1.0.1 | [idea-to-backlog/v1.0.1](https://github.com/cookaihq/seedbed/releases/tag/idea-to-backlog%2Fv1.0.1) |
+| review-ideas | 1.0.1 | [review-ideas/v1.0.1](https://github.com/cookaihq/seedbed/releases/tag/review-ideas%2Fv1.0.1) |
+<!-- release-table:end -->
+
 ## 安装
 
 把全部 skill 装进某个项目（Claude 与 Codex 双引擎同时可用）：
