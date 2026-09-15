@@ -119,6 +119,9 @@ root: docs/backlogs    # 相对项目根；也可绝对路径（入库不推荐�
 
 ## 5. 索引规则（reindex.mjs 产出）
 
+共享脚本调用须传 `--skill <当前 Skill 的 name>`；安装器为各 Skill 的副本写入该名称。没有显式数据根参数时，`SEEDBED_ROOT` 依次取进程环境变量、调用目录 `.env.<skill-name>`、`.env.local`、`.env` 的首个非空值，最后才用 `.seedbed`。这些配置文件不向父目录查找，也不读取 home；显式数据根参数仍优先。
+
+
 - **位置**：`.seedbed/IDEAS.md` 与 `.seedbed/BACKLOG.md`（根级，不进池目录）；链接用 `ideas/<file>` / `backlog/<file>` 相对路径。脚本会自动清理旧版遗留在池目录内的索引（迁移自愈）。
 - **日期倒序**（新日期在前）；同日按文件创建时间倒序。
 - **突出未决态**：`IDEAS.md` 把 Inbox/Brewing 排在前、Promoted/Dropped 折叠到末尾；`BACKLOG.md` 把未决态（Backlog/Needs research/Ready for spec/Planned）排在前、Done/Dropped 折叠到末尾。

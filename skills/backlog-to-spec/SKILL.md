@@ -1,7 +1,7 @@
 ---
 name: backlog-to-spec
-version: 1.1.0
-description: v1.1.0｜Use when the user wants to push a backlog entry toward a formal spec — phrases like "这条backlog可以做spec了"、"把这条交棒出去写规格"、"给这条立spec"、"这条该进设计了"、"hand this off to spec"、"turn this backlog item into a spec". Seedbed's 🧺 harvest step (route A) — detects which spec-driven tool the user has installed (Matt Pocock skills / Superpowers / Spec-Kit / OpenSpec / Task Master), lets them choose (or recommends installing Matt Pocock skills if none), packs the entry's context into that tool's expected input, and gives exact startup commands. Routing only — it NEVER writes the spec itself or takes over execution. Do NOT use to hand off to implementation (backlog-to-implementation), to tidy the pool (groom-backlog), or to promote an idea (idea-to-backlog).
+version: 1.2.0
+description: v1.2.0｜Use when the user wants to push a backlog entry toward a formal spec — phrases like "这条backlog可以做spec了"、"把这条交棒出去写规格"、"给这条立spec"、"这条该进设计了"、"hand this off to spec"、"turn this backlog item into a spec". Seedbed's 🧺 harvest step (route A) — detects which spec-driven tool the user has installed (Matt Pocock skills / Superpowers / Spec-Kit / OpenSpec / Task Master), lets them choose (or recommends installing Matt Pocock skills if none), packs the entry's context into that tool's expected input, and gives exact startup commands. Routing only — it NEVER writes the spec itself or takes over execution. Do NOT use to hand off to implementation (backlog-to-implementation), to tidy the pool (groom-backlog), or to promote an idea (idea-to-backlog).
 ---
 
 # backlog-to-spec 🧺 (harvest → 规格)
@@ -46,7 +46,7 @@ scripts/check_update.sh
 3. **探测**（HANDOFF §2）：CLI（`command -v specify openspec task-master`）+ 插件注册（`~/.claude/plugins/installed_plugins.json`）+ skill 目录 + 项目内标志，三类全查。
 4. **分支**（HANDOFF §3）：多个→让用户选（有项目内标志者优先展示）；1 个→直接用；0 个→**推荐安装 Matt Pocock skills**（`npx skills@latest add mattpocock/skills`），或用户另选。
 5. **打包 + 起步**（HANDOFF §4–§5）：把条目的问题 / 期望 / 事实依据 / 验收 / 依赖翻译成所选工具的输入，连同该工具的确切起步命令一并交给用户（如 `/to-spec`、`/speckit.specify`、`/opsx:propose`）。
-6. **回写**（HANDOFF §6）：`产物链接` 回填、状态 `Planned`、跑 `reindex.mjs`、向用户复述"交给了谁、从哪开始"。
+6. **回写**（HANDOFF §6）：`产物链接` 回填、状态 `Planned`、跑 `reindex.mjs --skill backlog-to-spec`、向用户复述"交给了谁、从哪开始"。
 
 ## CRITICAL
 
@@ -55,3 +55,7 @@ scripts/check_update.sh
 - **条目不离开池**：标 `Planned` + 链产物，本体不搬空——记忆层不删。
 - **起步命令以 HANDOFF 表为准**，表中两处标 ⚠️ 的（Superpowers 斜杠格式、OpenSpec 命令文件）运行时实测，别照本宣科。
 - **代管模式提醒**：起步命令要在**目标项目**里执行，不是当前工作台。
+
+## 索引脚本的配置读取
+
+调用共享 `reindex.mjs` 时传 `--skill backlog-to-spec`。未显式传 `<数据根>` 时，`SEEDBED_ROOT` 按进程环境变量 → `$PWD/.env.backlog-to-spec` → `$PWD/.env.local` → `$PWD/.env` 取首个非空值；都未配置时使用原来的 `.seedbed`。文件只读当前调用目录，不做 shell 展开，也不读其他 Skill 的专属文件或 home 配置。已明确的数据根参数优先于这些配置。安装产物内的脚本也固定了该 Skill 名。

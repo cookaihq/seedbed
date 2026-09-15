@@ -1,7 +1,8 @@
 ---
 name: backlog-to-implementation
-version: 1.1.0
-description: v1.1.0｜Use when the user wants to push a backlog entry toward actual implementation — phrases like "这条可以开始做了"、"把这条交棒去实现"、"开始实现这条backlog"、"这条动手吧"、"implement this backlog item"、"hand this off for implementation". Seedbed's 🧺 harvest step (route B) — first checks whether the entry already has a spec (via its 产物链接 field): has one → route to an installed executor (Spec-Kit /speckit.implement, OpenSpec /opsx:apply, Task Master, Matt Pocock /implement, Superpowers executing-plans, or the current agent as fallback); none → asks the user to either run backlog-to-spec first or, for small changes, skip spec and hand the entry itself over. Routing only — it NEVER implements or dispatches agents itself. Do NOT use to produce a spec (backlog-to-spec) or to tidy the pool (groom-backlog).
+version: 1.2.0
+description: >-
+  v1.2.0｜Use when the user wants to push a backlog entry toward actual implementation — phrases like "这条可以开始做了"、"把这条交棒去实现"、"开始实现这条backlog"、"这条动手吧"、"implement this backlog item"、"hand this off for implementation". Seedbed's 🧺 harvest step (route B) — first checks whether the entry already has a spec (via its 产物链接 field): has one → route to an installed executor (Spec-Kit /speckit.implement, OpenSpec /opsx:apply, Task Master, Matt Pocock /implement, Superpowers executing-plans, or the current agent as fallback); none → asks the user to either run backlog-to-spec first or, for small changes, skip spec and hand the entry itself over. Routing only — it NEVER implements or dispatches agents itself. Do NOT use to produce a spec (backlog-to-spec) or to tidy the pool (groom-backlog).
 ---
 
 # backlog-to-implementation 🧺 (harvest → 代码)
@@ -47,7 +48,7 @@ scripts/check_update.sh
 4. **探测执行器**（HANDOFF §2 + 表中"实现起步"列）：已装的 Spec-Kit / OpenSpec / Task Master / Matt Pocock（`/implement`）/ Superpowers（`executing-plans`）；**当前 agent 是永远可用的兜底**。
 5. **分支**（HANDOFF §3）：多个→让用户选；1 个→直接用；0 个专用执行器→提议"当前会话直接按条目/spec 实现"——用户同意后，那就是一个普通编码任务，**已在 Seedbed 职责之外**。
 6. **打包 + 起步**（HANDOFF §4–§5）：spec/tasks 位置 + 验收标准 + 依赖顺序（或轻量路径的条目本身），连同确切起步命令交给用户。
-7. **回写**（HANDOFF §6）：`产物链接` 补实现侧信息、状态保持 `Planned`、跑 `reindex.mjs`。**不标 `Done`**——落地与否由用户日后确认。
+7. **回写**（HANDOFF §6）：`产物链接` 补实现侧信息、状态保持 `Planned`、跑 `reindex.mjs --skill backlog-to-implementation`。**不标 `Done`**——落地与否由用户日后确认。
 
 ## CRITICAL
 
@@ -56,3 +57,7 @@ scripts/check_update.sh
 - **一条龙优先**：已有 spec 时优先推荐产出它的同一工具继续，减少上下文搬运损耗。
 - **记忆层不追执行进度**：交棒即 `Planned`，`Done` 等用户确认；下游做到哪一步不镜像回池。
 - **代管模式提醒**：起步命令在**目标项目**执行。
+
+## 索引脚本的配置读取
+
+调用共享 `reindex.mjs` 时传 `--skill backlog-to-implementation`。未显式传 `<数据根>` 时，`SEEDBED_ROOT` 按进程环境变量 → `$PWD/.env.backlog-to-implementation` → `$PWD/.env.local` → `$PWD/.env` 取首个非空值；都未配置时使用原来的 `.seedbed`。文件只读当前调用目录，不做 shell 展开，也不读其他 Skill 的专属文件或 home 配置。已明确的数据根参数优先于这些配置。安装产物内的脚本也固定了该 Skill 名。

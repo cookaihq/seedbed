@@ -1,7 +1,7 @@
 ---
 name: groom-backlog
-version: 1.1.0
-description: v1.1.0｜Use when the user wants to tidy up their backlog pool in a batch — phrases like "整理下backlog"、"backlog grooming"、"过一遍backlog"、"合并重复的条目"、"重新排下优先级"、"版本规划前收拾一下待办池"、"groom the backlog". Seedbed's ✂️ prune step — walks the backlog pool (.seedbed/backlog/), merging duplicates, splitting oversized entries, updating statuses, filling in Impact/Confidence/Effort/Priority, marking Dropped with reasons. Do NOT use to review raw ideas (that's review-ideas), to add a new entry (capture-idea / idea-to-backlog), or to hand an entry off to spec/implementation tools (backlog-to-spec / backlog-to-implementation).
+version: 1.2.0
+description: v1.2.0｜Use when the user wants to tidy up their backlog pool in a batch — phrases like "整理下backlog"、"backlog grooming"、"过一遍backlog"、"合并重复的条目"、"重新排下优先级"、"版本规划前收拾一下待办池"、"groom the backlog". Seedbed's ✂️ prune step — walks the backlog pool (.seedbed/backlog/), merging duplicates, splitting oversized entries, updating statuses, filling in Impact/Confidence/Effort/Priority, marking Dropped with reasons. Do NOT use to review raw ideas (that's review-ideas), to add a new entry (capture-idea / idea-to-backlog), or to hand an entry off to spec/implementation tools (backlog-to-spec / backlog-to-implementation).
 ---
 
 # groom-backlog ✂️ (prune)
@@ -52,7 +52,7 @@ scripts/check_update.sh
 2. 读 `<数据根>/BACKLOG.md`（索引在 `.seedbed/` 根），重点过**未决**区（Backlog / Needs research / Ready for spec / Planned）。
 3. 逐条检查：重复？过大？状态过时？缺评估维度？——把发现分成**可直接执行**（如明确重复的合并）与**需用户决策**（如方向性取舍、Dropped 判定），后者逐条向用户确认。
 4. 执行改动：改各条目自己的文件；合并时把被并条目内容全量并进主条目、互链后**删除被并文件**。
-5. 跑 `reindex.mjs` 刷新 `BACKLOG.md`。
+5. 跑 `reindex.mjs --skill groom-backlog` 刷新 `BACKLOG.md`。
 6. 汇报：合并了什么、拆了什么、改了哪些状态、哪些条目建议尽快交棒。
 
 ## CRITICAL
@@ -62,3 +62,7 @@ scripts/check_update.sh
 - **数字不编造**：Impact/Confidence/Effort 拿不准就留空或问，不臆测填值。
 - **不顺手交棒、不顺手实现**：grooming 只整理池子；发现该做的条目，建议用户走 `backlog-to-spec` / `backlog-to-implementation`，本 skill 不越界。
 - **不手改 `BACKLOG.md`**：它是 reindex 的派生物。
+
+## 索引脚本的配置读取
+
+调用共享 `reindex.mjs` 时传 `--skill groom-backlog`。未显式传 `<数据根>` 时，`SEEDBED_ROOT` 按进程环境变量 → `$PWD/.env.groom-backlog` → `$PWD/.env.local` → `$PWD/.env` 取首个非空值；都未配置时使用原来的 `.seedbed`。文件只读当前调用目录，不做 shell 展开，也不读其他 Skill 的专属文件或 home 配置。已明确的数据根参数优先于这些配置。安装产物内的脚本也固定了该 Skill 名。

@@ -1,7 +1,8 @@
 ---
 name: idea-to-backlog
-version: 1.1.0
-description: v1.1.0｜Use when a captured idea has matured and the user wants to turn it into a proper backlog item — phrases like "把这个想法转成backlog"、"这个idea可以做了"、"给这个点子立项"、"这个想法成熟了，正式记一条"、"promote this idea"、"move this to backlog". Seedbed's 🪴 transplant step — the exit of the ideas pool and the entrance of the backlog pool. Runs the real gate: dedup search + root-cause + acceptance criteria, writes a full backlog entry, marks the source idea Promoted (kept, cross-linked). Do NOT use to capture a fresh idea (capture-idea), to batch-review ideas (review-ideas), or to hand a backlog item to a spec/impl tool (backlog-to-spec / backlog-to-implementation).
+version: 1.2.0
+description: >-
+  v1.2.0｜Use when a captured idea has matured and the user wants to turn it into a proper backlog item — phrases like "把这个想法转成backlog"、"这个idea可以做了"、"给这个点子立项"、"这个想法成熟了，正式记一条"、"promote this idea"、"move this to backlog". Seedbed's 🪴 transplant step — the exit of the ideas pool and the entrance of the backlog pool. Runs the real gate: dedup search + root-cause + acceptance criteria, writes a full backlog entry, marks the source idea Promoted (kept, cross-linked). Do NOT use to capture a fresh idea (capture-idea), to batch-review ideas (review-ideas), or to hand a backlog item to a spec/impl tool (backlog-to-spec / backlog-to-implementation).
 ---
 
 # idea-to-backlog 🪴 (transplant)
@@ -46,7 +47,7 @@ scripts/check_update.sh
 3. **追根因**：不停在"想做什么"，追问"用户遇到的现象，背后真正成因是哪一层（需求 / 流程 / 数据结构）？"——读**上下文根项目**的代码求证。先写**问题**，不先写方案。
 4. **写条目**：在 `<数据根>/backlog/` 新建 `YYYY-MM-DD-<slug>.md`，按 CONVENTIONS §4 完整模板填写；`来源` 写"想法毕业"并链源 idea；关键事实不清写"待核实"，**不编造**。
 5. **回链源想法**：源 idea 状态改 `Promoted`，加一行链到新 backlog 条目。
-6. 跑 `reindex.mjs` 刷新 `IDEAS.md` + `BACKLOG.md`。
+6. 跑 `reindex.mjs --skill idea-to-backlog` 刷新 `IDEAS.md` + `BACKLOG.md`。
 7. 回报新 backlog 条目的**中文标题**。
 
 ## CRITICAL
@@ -56,3 +57,7 @@ scripts/check_update.sh
 - **数字 / 事实不编造**：Impact/Confidence/Effort 等拿不准就留空或"待核实"，不臆测填值。
 - **先问题后方案**：`问题` 字段写现象与影响，别把未验证的方案当结论写进去。
 - **一条一文件**：只新建自己的 backlog 文件 + 改源 idea 那一条，不手改 `BACKLOG.md`（reindex 派生）。
+
+## 索引脚本的配置读取
+
+调用共享 `reindex.mjs` 时传 `--skill idea-to-backlog`。未显式传 `<数据根>` 时，`SEEDBED_ROOT` 按进程环境变量 → `$PWD/.env.idea-to-backlog` → `$PWD/.env.local` → `$PWD/.env` 取首个非空值；都未配置时使用原来的 `.seedbed`。文件只读当前调用目录，不做 shell 展开，也不读其他 Skill 的专属文件或 home 配置。已明确的数据根参数优先于这些配置。安装产物内的脚本也固定了该 Skill 名。

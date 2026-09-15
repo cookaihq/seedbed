@@ -47,7 +47,55 @@ function resolveDataRoot(input) {
   return root ? resolve(dirname(p), root) : p // root 相对项目根；无 root 则 .seedbed/ 即数据根
 }
 
-const ROOT = resolveDataRoot(process.argv[2] || process.env.SEEDBED_ROOT || '.seedbed')
+// The installer embeds the owning Skill name in each self-contained copy.
+const INSTALLED_SKILL = null // @seedbed-installed-skill
+const SKILL_NAMES = new Set(['capture-idea', 'review-ideas', 'idea-to-backlog', 'groom-backlog', 'backlog-to-spec', 'backlog-to-implementation'])
+const args = process.argv.slice(2)
+let skillName = INSTALLED_SKILL
+const positional = []
+for (let i = 0; i < args.length; i++) {
+  if (args[i] === '--skill') {
+    skillName = args[++i]
+    if (!SKILL_NAMES.has(skillName)) {
+      console.error('--skill must name a Seedbed Skill')
+      process.exit(1)
+    }
+  } else if (args[i].startsWith('--')) {
+    console.error(`Unknown option: ${args[i]}`)
+    process.exit(1)
+  } else positional.push(args[i])
+}
+if (positional.length > 1) {
+  console.error('Only one data root may be supplied')
+  process.exit(1)
+}
+
+function rootFromFile(filename) {
+  let text
+  try { text = readFileSync(join(process.cwd(), filename), 'utf8') }
+  catch (error) { if (error.code === 'ENOENT') return ''; throw error }
+  let value = ''
+  for (const raw of text.split(/\r?\n/)) {
+    const line = raw.trim()
+    if (!line || line.startsWith('#')) continue
+    const at = line.indexOf('=')
+    if (at < 0 || line.slice(0, at).trim() !== 'SEEDBED_ROOT') continue
+    value = line.slice(at + 1).trim()
+    if (value.length >= 2 && ['"', "'"].includes(value[0]) && value.at(-1) === value[0]) value = value.slice(1, -1)
+  }
+  return value.trim()
+}
+const rootFiles = [...(skillName ? [`.env.${skillName}`] : []), '.env.local', '.env']
+function rootInput() {
+  if (positional[0]) return positional[0]
+  if (process.env.SEEDBED_ROOT?.trim()) return process.env.SEEDBED_ROOT.trim()
+  for (const file of rootFiles) {
+    const value = rootFromFile(file)
+    if (value) return value
+  }
+  return '.seedbed'
+}
+const ROOT = resolveDataRoot(rootInput())
 
 const DATE_RE = /(\d{4}-\d{2}-\d{2})/
 // 取「字段：」后到首个分隔符（｜|（(）前的主词，丢弃括注。

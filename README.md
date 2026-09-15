@@ -39,12 +39,12 @@ Seedbed 把你的想法当**种子**，不当待办。看到一个点子、一�
 <!-- release-table:begin -->
 | 目标 | 版本 | Release |
 |---|---|---|
-| backlog-to-implementation | 1.1.0 | [backlog-to-implementation/v1.1.0](https://github.com/cookaihq/seedbed/releases/tag/backlog-to-implementation%2Fv1.1.0) |
-| backlog-to-spec | 1.1.0 | [backlog-to-spec/v1.1.0](https://github.com/cookaihq/seedbed/releases/tag/backlog-to-spec%2Fv1.1.0) |
-| capture-idea | 1.1.0 | [capture-idea/v1.1.0](https://github.com/cookaihq/seedbed/releases/tag/capture-idea%2Fv1.1.0) |
-| groom-backlog | 1.1.0 | [groom-backlog/v1.1.0](https://github.com/cookaihq/seedbed/releases/tag/groom-backlog%2Fv1.1.0) |
-| idea-to-backlog | 1.1.0 | [idea-to-backlog/v1.1.0](https://github.com/cookaihq/seedbed/releases/tag/idea-to-backlog%2Fv1.1.0) |
-| review-ideas | 1.1.0 | [review-ideas/v1.1.0](https://github.com/cookaihq/seedbed/releases/tag/review-ideas%2Fv1.1.0) |
+| backlog-to-implementation | 1.2.0 | [backlog-to-implementation/v1.2.0](https://github.com/cookaihq/seedbed/releases/tag/backlog-to-implementation%2Fv1.2.0) |
+| backlog-to-spec | 1.2.0 | [backlog-to-spec/v1.2.0](https://github.com/cookaihq/seedbed/releases/tag/backlog-to-spec%2Fv1.2.0) |
+| capture-idea | 1.2.0 | [capture-idea/v1.2.0](https://github.com/cookaihq/seedbed/releases/tag/capture-idea%2Fv1.2.0) |
+| groom-backlog | 1.2.0 | [groom-backlog/v1.2.0](https://github.com/cookaihq/seedbed/releases/tag/groom-backlog%2Fv1.2.0) |
+| idea-to-backlog | 1.2.0 | [idea-to-backlog/v1.2.0](https://github.com/cookaihq/seedbed/releases/tag/idea-to-backlog%2Fv1.2.0) |
+| review-ideas | 1.2.0 | [review-ideas/v1.2.0](https://github.com/cookaihq/seedbed/releases/tag/review-ideas%2Fv1.2.0) |
 <!-- release-table:end -->
 
 ## 安装

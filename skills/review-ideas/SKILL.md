@@ -1,7 +1,8 @@
 ---
 name: review-ideas
-version: 1.1.0
-description: v1.1.0｜Use when the user wants to sit down and go through their captured ideas in a batch and sort them — phrases like "回顾一下我记的想法"、"整理下idea"、"看看之前存的点子"、"过一遍ideas池"、"idea grooming"、"review my ideas"、"triage my notes". Seedbed's 🌿 tend step — walks the ideas pool (.seedbed/ideas/), and for each open idea decides one of three: mature → hand to idea-to-backlog, not-ready → keep Brewing, abandon → Dropped (with reason, never deleted). Do NOT use to capture a single new idea (that's capture-idea) or to groom the backlog pool (that's groom-backlog).
+version: 1.2.0
+description: >-
+  v1.2.0｜Use when the user wants to sit down and go through their captured ideas in a batch and sort them — phrases like "回顾一下我记的想法"、"整理下idea"、"看看之前存的点子"、"过一遍ideas池"、"idea grooming"、"review my ideas"、"triage my notes". Seedbed's 🌿 tend step — walks the ideas pool (.seedbed/ideas/), and for each open idea decides one of three: mature → hand to idea-to-backlog, not-ready → keep Brewing, abandon → Dropped (with reason, never deleted). Do NOT use to capture a single new idea (that's capture-idea) or to groom the backlog pool (that's groom-backlog).
 ---
 
 # review-ideas 🌿 (tend)
@@ -50,7 +51,7 @@ scripts/check_update.sh
 2. 读 `<数据根>/IDEAS.md`（索引在 `.seedbed/` 根；或直接列 `ideas/`），聚焦**未决**（Inbox/Brewing）条目。
 3. 逐条向用户复述这条想法，问/判断走哪一态——**分流决定权在用户**，尤其"成熟与否"别替用户拍板。
 4. 落状态：成熟 → 触发 `idea-to-backlog`（本条随后转 `Promoted`）；不成熟 → `Brewing`；放弃 → `Dropped` + 原因。
-5. 跑一次 `reindex.mjs` 刷新 `IDEAS.md`。
+5. 跑一次 `reindex.mjs --skill review-ideas` 刷新 `IDEAS.md`。
 
 ## CRITICAL
 
@@ -58,3 +59,7 @@ scripts/check_update.sh
 - **成熟的必须走 idea-to-backlog**，不要在本 skill 里直接手写 backlog 条目——那样会跳过 backlog 该有的查重 + 追根因门槛。本 skill 只**分流**，移栽的重活交给 `idea-to-backlog`。
 - **批量、逐条、可中断**：一次没过完没关系，reindex 幂等，下次接着过。
 - **尊重用户判断**：三态里"成熟 / 不成熟"是决策项，复述清楚让用户定，不擅自 Promote 或 Drop。
+
+## 索引脚本的配置读取
+
+调用共享 `reindex.mjs` 时传 `--skill review-ideas`。未显式传 `<数据根>` 时，`SEEDBED_ROOT` 按进程环境变量 → `$PWD/.env.review-ideas` → `$PWD/.env.local` → `$PWD/.env` 取首个非空值；都未配置时使用原来的 `.seedbed`。文件只读当前调用目录，不做 shell 展开，也不读其他 Skill 的专属文件或 home 配置。已明确的数据根参数优先于这些配置。安装产物内的脚本也固定了该 Skill 名。

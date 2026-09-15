@@ -1,7 +1,7 @@
 ---
 name: capture-idea
-version: 1.1.0
-description: v1.1.0｜Use when the user wants to jot down a raw idea, spark, or something worth remembering later WITHOUT acting on it now — phrases like "记个想法"、"记一下这个idea"、"看到篇文章想存个点子"、"这个视频给我个灵感"、"先记下来别丢了"、"capture this idea"、"note this down for later". Seedbed's 🌱 sow step — drops the idea into the ideas pool (.seedbed/ideas/) with near-zero friction, then stops. Do NOT use to start building, to write a spec, to turn an idea into a backlog item (that's idea-to-backlog), or to look up existing notes — capture only writes a new idea, it never acts on it.
+version: 1.2.0
+description: v1.2.0｜Use when the user wants to jot down a raw idea, spark, or something worth remembering later WITHOUT acting on it now — phrases like "记个想法"、"记一下这个idea"、"看到篇文章想存个点子"、"这个视频给我个灵感"、"先记下来别丢了"、"capture this idea"、"note this down for later". Seedbed's 🌱 sow step — drops the idea into the ideas pool (.seedbed/ideas/) with near-zero friction, then stops. Do NOT use to start building, to write a spec, to turn an idea into a backlog item (that's idea-to-backlog), or to look up existing notes — capture only writes a new idea, it never acts on it.
 ---
 
 # capture-idea 🌱 (sow)
@@ -48,7 +48,7 @@ scripts/check_update.sh
 1. **解析数据根**（CONVENTIONS §1.1）：cwd 向上找 `.seedbed/`；config 含 `target:` 就跟一跳（代管模式），再按 `root:` 定位项目内自定义数据目录（如 docs/backlogs）；多项目工作区里找不到 → 扫子目录 + 结合对话推断这条 idea 属于哪个项目并**向用户确认**，不擅自在工作区根新建。
 2. 选类型：Spark(⚡) / Bet(🎯) / Reference(🔖，**必附来源链接**) / Observation(🔍)。
 3. 在 `<数据根>/ideas/` 新建 `YYYY-MM-DD-<slug>.md`（英文 kebab slug；撞名加 `-2`），按 CONVENTIONS §3 的 5 字段轻模板填写，状态默认 `Inbox`。
-4. 跑一次 `node <seedbed>/scripts/reindex.mjs <数据根>` 刷新 `IDEAS.md`（若配了保存后自动重跑的 hook 则免）。
+4. 跑一次 `node <seedbed>/scripts/reindex.mjs --skill capture-idea <数据根>` 刷新 `IDEAS.md`（若配了保存后自动重跑的 hook 则免）。
 5. 回报：告诉用户这条在 `IDEAS.md` 里的**中文标题**，方便日后定位（文件名是英文 slug、不便辨认）。
 
 ## CRITICAL
@@ -58,3 +58,7 @@ scripts/check_update.sh
 - **只写不做**：capture 只新建一条 idea 文件，**绝不**顺手开始实现、写 spec、或改别的文件。
 - **只新建自己的文件**：一条一文件，不碰他人条目、不手改 `IDEAS.md`（它是 reindex 的派生物）。
 - **默认状态 Inbox**：交给后续 `review-ideas` 分流，别在捕获时替用户判断成熟度。
+
+## 索引脚本的配置读取
+
+调用共享 `reindex.mjs` 时传 `--skill capture-idea`。未显式传 `<数据根>` 时，`SEEDBED_ROOT` 按进程环境变量 → `$PWD/.env.capture-idea` → `$PWD/.env.local` → `$PWD/.env` 取首个非空值；都未配置时使用原来的 `.seedbed`。文件只读当前调用目录，不做 shell 展开，也不读其他 Skill 的专属文件或 home 配置。已明确的数据根参数优先于这些配置。安装产物内的脚本也固定了该 Skill 名。
